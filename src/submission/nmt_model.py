@@ -68,9 +68,9 @@ class NMT(nn.Module):
         ###         https://pytorch.org/docs/stable/generated/torch.nn.Dropout.html#torch.nn.Dropout
         ### START CODE HERE (~8 Lines)
         dev = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-        self.encoder = nn.LSTM( embed_size, hidden_size, bias=True, bidirectional=True, device=dev)
+        self.encoder = nn.LSTM( embed_size, hidden_size, bidirectional=True, device=dev)
         #(Bidirectional LSTM with bias)
-        self.decoder = nn.LSTMCell(embed_size + hidden_size , hidden_size, bias=True, device=dev)
+        self.decoder = nn.LSTMCell(embed_size + hidden_size , hidden_size, device=dev)
         #(LSTM Cell with bias)
         self.h_projection = nn.Linear(2 * hidden_size, hidden_size, bias=False,device=dev)
         #(Linear Layer with no bias), called W_{h} in the PDF.
@@ -381,7 +381,7 @@ class NMT(nn.Module):
         ### END CODE HERE
 
         combined_output = O_t
-        return dec_state, combined_output, e_t
+        return (next_hidden, next_cell), combined_output, e_t
 
     def generate_sent_masks(self, enc_hiddens: torch.Tensor, source_lengths: List[int]) -> torch.Tensor:
         """ Generate sentence masks for encoder hidden states.
