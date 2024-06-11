@@ -333,7 +333,7 @@ class NMT(nn.Module):
         ###         https://pytorch.org/docs/stable/generated/torch.squeeze.html#torch-squeeze
 
         ### START CODE HERE (~3 Lines)
-        dec_hidden, dec_cell = self.decoder(Ybar_t, dec_state)
+        next_hidden, next_cell = self.decoder(Ybar_t, dec_state)
         e_t = torch.bmm(enc_hiddens_proj, torch.unsqueeze(next_hidden, 2))
         e_t = torch.squeeze(e_t,2)
         
