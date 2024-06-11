@@ -68,7 +68,7 @@ class NMT(nn.Module):
         ###         https://pytorch.org/docs/stable/generated/torch.nn.Dropout.html#torch.nn.Dropout
         ### START CODE HERE (~8 Lines)
         dev = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-        self.encoder = nn.LSTM( embed_size, hidden_size, bias=True, dropout=self.dropout_rate, bidirectional=True, device=dev)
+        self.encoder = nn.LSTM( embed_size, hidden_size, bias=True, bidirectional=True, device=dev)
         #(Bidirectional LSTM with bias)
         self.decoder = nn.LSTMCell(embed_size + hidden_size , hidden_size, bias=True, device=dev)
         #(LSTM Cell with bias)
@@ -334,7 +334,7 @@ class NMT(nn.Module):
 
         ### START CODE HERE (~3 Lines)
         dec_hidden, dec_cell = self.decoder(Ybar_t, dec_state)
-        e_t = torch.bmm(enc_hiddens_proj, torch.unsqueeze(dec_hidden, 2))
+        e_t = torch.bmm(enc_hiddens_proj, torch.unsqueeze(next_hidden, 2))
         e_t = torch.squeeze(e_t,2)
         
         ### END CODE HERE

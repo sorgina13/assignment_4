@@ -44,7 +44,7 @@ class ModelEmbeddings(nn.Module):
         ### START CODE HERE (~2 Lines)
         
         self.source = nn.Embedding(len(vocab.src), self.embed_size, padding_idx=src_pad_token_idx, sparse=True)
-        self.target = nn.Embedding(len(vocab.tgt), self.embed_size, padding_idx=src_pad_token_idx, sparse=True)
+        self.target = nn.Embedding(len(vocab.tgt), self.embed_size, padding_idx=tgt_pad_token_idx, sparse=True)
         ### END CODE HERE
 
 
