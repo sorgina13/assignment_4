@@ -43,8 +43,8 @@ class ModelEmbeddings(nn.Module):
         ###         https://pytorch.org/docs/stable/generated/torch.nn.Embedding.html#torch.nn.Embedding
         ### START CODE HERE (~2 Lines)
         
-        self.source = nn.Embedding(len(vocab.src), self.embed_size, padding_idx=src_pad_token_idx, sparse=True)
-        self.target = nn.Embedding(len(vocab.tgt), self.embed_size, padding_idx=tgt_pad_token_idx, sparse=True)
+        self.source = nn.Embedding(len(vocab.src), self.embed_size, padding_idx=src_pad_token_idx, sparse=False)
+        self.target = nn.Embedding(len(vocab.tgt), self.embed_size, padding_idx=tgt_pad_token_idx, sparse=False)
         ### END CODE HERE
 
 
